@@ -1,0 +1,53 @@
+{% load static %}  <!-- 添加这行在顶部 -->
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To-Do lists</title>
+
+    <!-- 本地 Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+    <!-- 自定义 CSS -->
+    <style>
+        .container-custom {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        #id_list_table {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container container-custom">
+        <div class="row justify-content-center">
+            <div class="col-md-8 jumbotron">
+                <h1 class="text-center mb-4">{% block header_text %}{% endblock %}</h1>
+
+                <form method="POST" action="{% block form_action %}{% endblock %}" class="mb-4">
+                    <div class="input-group">
+                        <input
+                            name="item_text"
+                            id="id_new_item"
+                            class="form-control form-control-lg"
+                            placeholder="Enter a to-do item"
+                        >
+                        {% csrf_token %}
+                    </div>
+                </form>
+
+                {% block table %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <!-- 本地 Bootstrap JS 及其依赖 -->
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
